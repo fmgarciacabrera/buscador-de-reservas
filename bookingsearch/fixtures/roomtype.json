@@ -1,0 +1,42 @@
+[
+  {
+    "model": "bookingsearch.RoomType",
+    "pk": 1,
+    "fields": {
+      "room_name": "Individual",
+      "room_code": "IND",
+      "room_number": 10,
+      "room_capacity": 1
+    }
+  },
+  {
+    "model": "bookingsearch.RoomType",
+    "pk": 2,
+    "fields": {
+      "room_name": "Doble",
+      "room_code": "DOB",
+      "room_number": 5,
+      "room_capacity": 2
+    }
+  },
+  {
+    "model": "bookingsearch.RoomType",
+    "pk": 3,
+    "fields": {
+      "room_name": "Triple",
+      "room_code": "TRI",
+      "room_number": 4,
+      "room_capacity": 3
+    }
+  },
+  {
+    "model": "bookingsearch.RoomType",
+    "pk": 4,
+    "fields": {
+      "room_name": "Cuádruple",
+      "room_code": "QUA",
+      "room_number": 6,
+      "room_capacity": 4
+    }
+  }
+]

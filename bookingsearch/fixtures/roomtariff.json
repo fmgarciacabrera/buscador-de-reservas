@@ -1,0 +1,34 @@
+[
+  {
+    "model": "bookingsearch.RoomTariff",
+    "pk": 1,
+    "fields": {
+      "roomtype_id": 1,
+      "price_per_night": 20.0
+    }
+  },
+  {
+    "model": "bookingsearch.RoomTariff",
+    "pk": 2,
+    "fields": {
+      "roomtype_id": 2,
+      "price_per_night": 30.0
+    }
+  },
+  {
+    "model": "bookingsearch.RoomTariff",
+    "pk": 3,
+    "fields": {
+      "roomtype_id": 3,
+      "price_per_night": 40.0
+    }
+  },
+  {
+    "model": "bookingsearch.RoomTariff",
+    "pk": 4,
+    "fields": {
+      "roomtype_id": 4,
+      "price_per_night": 50.0
+    }
+  }
+]
