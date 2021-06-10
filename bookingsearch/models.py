@@ -19,6 +19,9 @@ class RoomTariff(models.Model):
     roomtype = models.ForeignKey(RoomType, on_delete=models.CASCADE)
     price_per_night = models.DecimalField(max_digits=12, decimal_places=2)
 
+    def __str__(self):
+        return "{} {} {}".format(self.id, self.roomtype, self.price_per_night)
+
 
 class ContactInfo(models.Model):
     name = models.CharField(max_length=80)
