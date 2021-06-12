@@ -1,5 +1,7 @@
 from django.db import models
 
+from . import defaults
+
 # Create your models here.
 
 class RoomType(models.Model):
@@ -28,6 +30,9 @@ class ContactInfo(models.Model):
     email = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=20)
 
+    def __str__(self):
+        return "{} {} {} {}".format(self.id, self.name, self.email, self.phone_number)
+
 
 class Booking(models.Model):
     arrival = models.DateField(default=0)
@@ -38,3 +43,13 @@ class Booking(models.Model):
     price = models.DecimalField(max_digits=12, decimal_places=2)
     gds_number = models.CharField(max_length=32)
     room_number = models.IntegerField(default=1, blank=True)
+
+    def __str__(self):
+        return "{}: [{} {}] G:{} P:{} {} GDS:{} RN:{}".format(self.id,
+            self.arrival.strftime(defaults.DATE_FORMAT),
+            self.departure.strftime(defaults.DATE_FORMAT),
+            self.guest_number,
+            self.price,
+            self.contact_info,
+            self.gds_number,
+            self.room_number)

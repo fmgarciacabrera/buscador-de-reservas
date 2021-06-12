@@ -1,0 +1,66 @@
+body {
+  display: block;
+  background: #f9f9f9;
+  font-family: 'Open Sans', sans-serif;
+}
+
+caption {
+  text-align: center;
+  font-weight: bold;
+}
+
+.theme-showcase {
+  margin-top: 70px;
+}
+
+.jumbotron {
+  color: #fff;
+  background: linear-gradient(135deg, #69b634 0%,#69b634 30%,#1fb5ad 100%);
+}
+
+.content {
+    background: transparent;
+    margin: 1em;
+}
+
+.navbar-fixed-top {
+  top: 0;
+  border-width: 0 0 1px;
+}
+
+h2, h3, h4 {
+  margin-top: 25px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.row .row {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+[class*="col-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+hr {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.panel-primary {
+  border-color: #69b634;
+}
+
+.panel-primary > .panel-heading {
+  background-color: #69b634;
+  border-color: #69b634;
+}
+
+.btn-primary {
+  background-color: #69b634;
+  border-color: #69b634;
+}

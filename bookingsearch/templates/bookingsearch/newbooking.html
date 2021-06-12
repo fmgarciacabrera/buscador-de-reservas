@@ -1,0 +1,97 @@
+{% extends "./base.html" %}
+
+{% block pagetitle %}Nueva reserva{% endblock %}
+{% block title %}Nueva reserva{% endblock %}
+
+{% block customstyles %}
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Nueva reserva</h3>
+  </div>
+  <div class="panel-body">
+    {% if search_criteria %}
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>Llegada: {{search.sarrival}}</p>
+        <p>Salida: {{search.sdeparture}}</p>
+        <p>Huéspedes: {{search.guests}}</p>
+        <p>Noches de estancia: {{search.nights}}</p>
+        <p>Habitaciones: {{rooms|length}}</p>
+        <p>bookings: {{rooms}}</p>
+      </div>
+      <table class="table table-bordered">
+        <caption>Disponibilidad de habitaciones</caption>
+        <thead>
+          <tr>
+            <th>Tipo de habitación</th>
+            <th># hab. disponibles</th>
+            <th>Precio de la estancia</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if rooms %}
+            {% for room in rooms %}
+            <tr>
+              <td>{{room.room_type}}</td>
+              <td>{{room.available}}</td>
+              <td>{{room.price}}</td>
+              <td><button class="btn btn-primary">Reservar</button></td>
+            </tr>
+            {% endfor %}
+          {% else %}
+          <tr>
+            <td class="text-center" colspan="4">No hay habitaciones disponibles</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+      <div class="panel-footer">
+        <a class="btn btn-primary" href="{% url 'newsearch' %}">Nueva búsqueda</a>
+      </div>
+    </div>
+    {% else %}
+    {{ form.non_field_errors }}
+    <form class="form-horizontal" action="/newbooking/" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_fecha_entrada" class="col-sm-2 control-label">{{ form.fecha_entrada.label }}</label>
+        <div class="col-sm-10">
+          {{ form.fecha_entrada }}
+          {{ form.fecha_entrada.errors}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="id_fecha_salida" class="col-sm-2 control-label">{{ form.fecha_salida.label }}</label>
+        <div class="col-sm-10">
+          {{ form.fecha_salida }}
+          {{ form.fecha_salida.errors}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="id_guests" class="col-sm-2 control-label">{{ form.guests.label }}</label>
+        <div class="col-sm-10">
+          {{ form.guests }}
+          {{ form.guests.errors}}
+        </div>
+      </div>
+      <input class="btn btn-primary" type="submit" value="Buscar">
+    </form>
+    {% endif %}
+  </div>
+  <div class="panel-footer">
+    <a class="btn btn-primary" href="">
+      <i class="glyphicon glyphicon-plus"></i> Buscar
+    </a>
+  </div>
+</div>
+{% endblock %}
+
+{% block customjavascript %}
+{% load static %}
+<script type="text/javascript" src="{% static 'bookingsearch/js/datepicker.js' %}"></script>
+{% endblock %}

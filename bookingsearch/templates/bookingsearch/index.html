@@ -1,0 +1,55 @@
+{% extends "./base.html" %}
+
+{% block pagetitle %}Búsqueda de reservas{% endblock %}
+{% block title %}Búsqueda de reservas{% endblock %}
+
+{% block content %}
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Listado de reservas</h3>
+  </div>
+  {% if booking_list %}
+  <table class="table table-stripped table-bordered">
+  <thead>
+    <tr>
+      <th>fecha llegada</th>
+      <th>fecha salida</th>
+      <th>tipo de habitación</th>
+      <th>número de huéspedes</th>
+      <th>contacto</th>
+      <th>precio</th>
+      <th>localizador</th>
+      <th>número habitación (opcional)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%if booking_list|length %}
+    {% for booking in booking_list %}
+    <tr>
+      <td>{{booking.arrival|date:"Y-m-d"}}</td>
+      <td>{{booking.departure|date:"Y-m-d"}}</td>
+      <td>{{booking.roomtype}}</td>
+      <td>{{booking.guest_number}}</td>
+      <td>{{booking.contact_info}}</td>
+      <td>{{booking.price}}</td>
+      <td>{{booking.gds_number}}</td>
+      <td>{{booking.room_number}}</td>
+    </tr>
+    {% endfor %}
+    {%else%}
+    <tr>
+      <td class="text-center" colspan="8">No hay ninguna reserva</td>
+    </tr>
+    {%endif%}
+    </tbody>
+    </table>
+    {% else %}
+    <p>No hay ninguna reserva registrada.</p>
+    {% endif %}
+  <div class="panel-footer">
+    <a class="btn btn-primary" href="{% url 'newbooking' %}">
+      <i class="glyphicon glyphicon-plus"></i> Nueva reserva
+    </a>
+  </div>
+</div>
+{% endblock %}
