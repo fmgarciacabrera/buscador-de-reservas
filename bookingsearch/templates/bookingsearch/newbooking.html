@@ -1,7 +1,7 @@
 {% extends "./base.html" %}
 
-{% block pagetitle %}Nueva reserva{% endblock %}
-{% block title %}Nueva reserva{% endblock %}
+{% block pagetitle %}{{ defaults.APP_TITLE }}: {{ subtitle }}{% endblock %}
+{% block title %}{{ subtitle }}{% endblock %}
 
 {% block customstyles %}
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -10,18 +10,15 @@
 {% block content %}
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Nueva reserva</h3>
+    <h3 class="panel-title">{{ subtitle }}</h3>
   </div>
   <div class="panel-body">
     {% if search_criteria %}
     <div class="panel panel-default">
-      <div class="panel-body">
-        <p>Llegada: {{search.sarrival}}</p>
-        <p>Salida: {{search.sdeparture}}</p>
-        <p>Huéspedes: {{search.guests}}</p>
-        <p>Noches de estancia: {{search.nights}}</p>
-        <p>Habitaciones: {{rooms|length}}</p>
-        <p>bookings: {{rooms}}</p>
+      <div class="panel-heading">
+        <div><h3>Criterios de búsqueda</h3></div>
+        <div><strong>Estancia:</strong> [{{search.sarrival}}, {{search.sdeparture}}) &mdash; {{search.nights}} noche(s)</div>
+        <div><strong>Número de huéspedes:</strong> {{search.guests}}</div>
       </div>
       <table class="table table-bordered">
         <caption>Disponibilidad de habitaciones</caption>
@@ -29,20 +26,41 @@
           <tr>
             <th>Tipo de habitación</th>
             <th># hab. disponibles</th>
+            <th># total hab.</th>
             <th>Precio de la estancia</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {% if rooms %}
+          <form class="room-booking" action="/contact/" method="post">
+            {% csrf_token %}
             {% for room in rooms %}
             <tr>
               <td>{{room.room_type}}</td>
               <td>{{room.available}}</td>
-              <td>{{room.price}}</td>
-              <td><button class="btn btn-primary">Reservar</button></td>
+              <td>{{room.room_type.room_number}}</td>
+              <td>{{room.price}} €</td>
+              <td>
+                {% if room.available == 0 %}
+                <button class="btn btn-primary" disabled="disabled">Reservar</button>
+                {% else %}
+                <button class="btn btn-primary bookroom"
+                  data-roomtype="{{ room.room_type.id }}"
+                  data-roomnumber="{{ room.room_number }}"
+                  data-price="{{ room.price }}">Reservar</button>
+                {% endif %}
+              </td>
             </tr>
             {% endfor %}
+              <input type="hidden" name="arrival" value="{{ search.sarrival }}">
+              <input type="hidden" name="departure" value="{{ search.sdeparture }}">
+              <input type="hidden" name="guests" value="{{ search.guests }}">
+              <input type="hidden" name="roomtype" value="">
+              <input type="hidden" name="roomnumber" value="">
+              <input type="hidden" name="price" value="">
+              <input class="hidden" type="submit" value="Submit">
+          </form>
           {% else %}
           <tr>
             <td class="text-center" colspan="4">No hay habitaciones disponibles</td>
@@ -83,15 +101,11 @@
     </form>
     {% endif %}
   </div>
-  <div class="panel-footer">
-    <a class="btn btn-primary" href="">
-      <i class="glyphicon glyphicon-plus"></i> Buscar
-    </a>
-  </div>
 </div>
 {% endblock %}
 
 {% block customjavascript %}
 {% load static %}
 <script type="text/javascript" src="{% static 'bookingsearch/js/datepicker.js' %}"></script>
+<script type="text/javascript" src="{% static 'bookingsearch/js/booking.js' %}"></script>
 {% endblock %}

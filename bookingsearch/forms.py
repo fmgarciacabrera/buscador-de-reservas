@@ -3,6 +3,8 @@ from django import forms
 from datetime import date, timedelta
 from . import defaults
 
+from .models import ContactInfo
+
 class NewBookingForm(forms.Form):
     today = date.today()
     stoday = today.strftime(defaults.DATE_FORMAT)
@@ -26,3 +28,33 @@ class NewBookingForm(forms.Form):
             'class':'form-control',
             'placeholder': 'Número de huéspedes'
         }))
+
+
+class ContactInfoForm(forms.Form):
+
+    name = forms.CharField(label="Nombre",
+        widget=forms.TextInput(attrs={
+            'class':'form-control',
+            'placeholder': 'Nombre'
+        }))
+    name.label_classes = ('control-label')
+    email = forms.EmailField(label="Email",
+        widget=forms.EmailInput(attrs={
+            'class':'form-control',
+            'placeholder': 'Escriba su email'
+        }))
+    email.label_classes = ('control-label')
+    phone_number = forms.CharField(label="Teléfono",
+        widget=forms.TextInput(attrs={
+            'class':'form-control',
+            'placeholder': 'Número de teléfono'
+        }))
+    phone_number.label_classes = ('control-label')
+
+    # campos ocultos
+    arrival = forms.CharField(widget=forms.HiddenInput())
+    departure = forms.CharField(widget=forms.HiddenInput())
+    guests = forms.CharField(widget=forms.HiddenInput())
+    roomtype = forms.CharField(widget=forms.HiddenInput())
+    roomnumber = forms.CharField(widget=forms.HiddenInput())
+    price = forms.CharField(widget=forms.HiddenInput())

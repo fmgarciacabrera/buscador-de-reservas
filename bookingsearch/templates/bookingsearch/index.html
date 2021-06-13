@@ -1,7 +1,7 @@
 {% extends "./base.html" %}
 
-{% block pagetitle %}Búsqueda de reservas{% endblock %}
-{% block title %}Búsqueda de reservas{% endblock %}
+{% block pagetitle %}{{ defaults.APP_TITLE }}: {{subtitle}}{% endblock %}
+{% block title %}Listado de reservas{% endblock %}
 
 {% block content %}
 <div class="panel panel-primary">
@@ -31,7 +31,7 @@
       <td>{{booking.roomtype}}</td>
       <td>{{booking.guest_number}}</td>
       <td>{{booking.contact_info}}</td>
-      <td>{{booking.price}}</td>
+      <td>{{booking.price}} €</td>
       <td>{{booking.gds_number}}</td>
       <td>{{booking.room_number}}</td>
     </tr>
@@ -44,7 +44,7 @@
     </tbody>
     </table>
     {% else %}
-    <p>No hay ninguna reserva registrada.</p>
+    <p class="text-center">No hay ninguna reserva registrada.</p>
     {% endif %}
   <div class="panel-footer">
     <a class="btn btn-primary" href="{% url 'newbooking' %}">

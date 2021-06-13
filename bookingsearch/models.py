@@ -41,7 +41,7 @@ class Booking(models.Model):
     guest_number = models.IntegerField(default=1)
     contact_info = models.ForeignKey(ContactInfo, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=12, decimal_places=2)
-    gds_number = models.CharField(max_length=32)
+    gds_number = models.CharField(max_length=32, unique=True)
     room_number = models.IntegerField(default=1, blank=True)
 
     def __str__(self):
